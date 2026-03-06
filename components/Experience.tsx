@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -42,7 +43,7 @@ const bullets = [
 
 export default function Experience() {
     return (
-        <section id="experience" className="bg-bg py-[120px] px-6">
+        <section id="experience" className="py-[120px] px-6" style={{ background: "#1d1d1f" }}>
             <motion.div
                 variants={sectionVariants}
                 initial="hidden"
@@ -53,25 +54,30 @@ export default function Experience() {
                 {/* Section Title */}
                 <motion.h2
                     variants={itemVariants}
-                    className="text-[48px] font-bold text-text-primary tracking-tight mb-12"
+                    className="text-[48px] font-bold text-white tracking-tight mb-12"
                 >
                     Experience
                 </motion.h2>
 
-                {/* Featured Card */}
-                <motion.div
-                    variants={itemVariants}
-                    className="bg-white rounded-card shadow-hover border-l-4 p-8 md:p-10"
-                    style={{ borderLeftColor: "var(--color-accent)" }}
-                >
-                    {/* Header */}
-                    <div className="mb-6">
-                        <h3 className="text-[22px] font-bold text-text-primary mb-1">
-                            Data Science Intern @ Rubius
-                        </h3>
-                        <p className="text-[15px] text-text-secondary">
-                            June – August 2025 · Remote
-                        </p>
+                {/* Content — no card wrapper */}
+                <motion.div variants={itemVariants}>
+                    {/* Header — Role on left, Logo on right */}
+                    <div className="mb-6 flex items-start justify-between gap-4">
+                        <div>
+                            <h3 className="text-[22px] font-bold text-white mb-1">
+                                Data Science Intern
+                            </h3>
+                            <p className="text-[15px]" style={{ color: "#86868b" }}>
+                                June – August 2025 · Remote
+                            </p>
+                        </div>
+                        <Image
+                            src="/assets/logos/rubius.svg"
+                            alt="Rubius logo"
+                            width={100}
+                            height={40}
+                            className="object-contain flex-shrink-0 ml-auto"
+                        />
                     </div>
 
                     {/* Bullet Points */}
@@ -79,10 +85,10 @@ export default function Experience() {
                         {bullets.map((bullet, index) => (
                             <li
                                 key={index}
-                                className="text-[15px] text-text-secondary leading-relaxed pl-5 relative"
-                                style={{ letterSpacing: "-0.01em" }}
+                                className="text-[15px] leading-relaxed pl-5 relative"
+                                style={{ letterSpacing: "-0.01em", color: "#a1a1a6" }}
                             >
-                                <span className="absolute left-0 top-[9px] w-[5px] h-[5px] rounded-full bg-text-tertiary" />
+                                <span className="absolute left-0 top-[9px] w-[5px] h-[5px] rounded-full" style={{ background: "#86868b" }} />
                                 {bullet}
                             </li>
                         ))}
@@ -93,7 +99,8 @@ export default function Experience() {
                         {techTags.map((tag) => (
                             <span
                                 key={tag}
-                                className="bg-bg-secondary text-text-primary text-[13px] font-medium px-3 py-1 rounded-tag"
+                                className="text-[13px] font-medium px-3 py-1 rounded-tag text-white"
+                                style={{ background: "rgba(255,255,255,0.08)" }}
                             >
                                 {tag}
                             </span>
