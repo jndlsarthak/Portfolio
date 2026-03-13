@@ -39,7 +39,12 @@ export default function Projects() {
     }, [activeIndex]);
 
     const getCardStyle = (index: number) => {
-        const diff = index - activeIndex;
+        let diff = index - activeIndex;
+        const total = projects.length;
+
+        // Wrap around for infinite circular effect
+        if (diff > Math.floor(total / 2)) diff -= total;
+        else if (diff < -Math.floor(total / 2)) diff += total;
 
         if (diff === 0) {
             return {
@@ -79,14 +84,14 @@ export default function Projects() {
 
 
     return (
-        <section id="projects" className="bg-bg py-[120px] px-6 overflow-hidden">
+        <section id="projects" className="bg-[#161617] py-[120px] px-6 overflow-hidden">
             <div className="max-w-content mx-auto">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-                    className="text-[48px] font-bold text-text-primary tracking-tight mb-16 text-center"
+                    className="text-[48px] font-bold text-[#f5f5f7] tracking-tight mb-16 text-center"
                 >
                     Projects
                 </motion.h2>
@@ -119,7 +124,7 @@ export default function Projects() {
                                     onClick={() => goTo(index)}
                                 >
                                     {/* Card */}
-                                    <div className="bg-white rounded-card border border-border overflow-hidden shadow-card hover:shadow-hover transition-shadow">
+                                    <div className="bg-[#1d1d1f] rounded-card border border-[#333336] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] transition-shadow">
                                         {/* Cover Image */}
                                         <div className="relative w-full" style={{ height: "242px" }}>
                                             <Image
@@ -132,25 +137,25 @@ export default function Projects() {
                                         </div>
 
                                         {/* Card Content */}
-                                        <div className="px-6 pb-6 pt-2">
+                                        <div className="px-6 pb-6 pt-5">
                                             {/* Tags */}
-                                            <div className="flex flex-wrap gap-1.5 mb-3">
+                                            <div className="flex flex-wrap gap-1.5 mb-4">
                                                 {project.tags.map((tag) => (
                                                     <span
                                                         key={tag}
-                                                        className="bg-bg-secondary text-text-secondary text-[12px] font-medium px-2.5 py-0.5 rounded-tag"
+                                                        className="bg-[#2d2d2f] text-[#a1a1a6] text-[12px] font-medium px-2.5 py-0.5 rounded-tag"
                                                     >
                                                         {tag}
                                                     </span>
                                                 ))}
                                             </div>
                                             {/* Title */}
-                                            <h3 className="text-[22px] font-bold text-text-primary mb-1 leading-tight">
+                                            <h3 className="text-[22px] font-bold text-[#f5f5f7] mb-2 leading-tight">
                                                 {project.title}
                                             </h3>
                                             {/* Description */}
                                             <p
-                                                className="text-[14px] text-text-secondary mb-3 line-clamp-2"
+                                                className="text-[14px] text-[#a1a1a6] mb-4 line-clamp-2"
                                                 style={{ letterSpacing: "-0.01em" }}
                                             >
                                                 {project.description}
@@ -179,17 +184,17 @@ export default function Projects() {
                 {/* Arrow Buttons */}
                 <button
                     onClick={() => goTo(activeIndex - 1)}
-                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center hover:bg-border transition-colors z-20"
+                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#333336] flex items-center justify-center hover:bg-[#444446] transition-colors z-20"
                     aria-label="Previous project"
                 >
-                    <ChevronLeft className="w-5 h-5 text-text-primary" />
+                    <ChevronLeft className="w-5 h-5 text-[#f5f5f7]" />
                 </button>
                 <button
                     onClick={() => goTo(activeIndex + 1)}
-                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-bg-secondary flex items-center justify-center hover:bg-border transition-colors z-20"
+                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#333336] flex items-center justify-center hover:bg-[#444446] transition-colors z-20"
                     aria-label="Next project"
                 >
-                    <ChevronRight className="w-5 h-5 text-text-primary" />
+                    <ChevronRight className="w-5 h-5 text-[#f5f5f7]" />
                 </button>
             </div>
 
@@ -200,8 +205,8 @@ export default function Projects() {
                         key={index}
                         onClick={() => goTo(index)}
                         className={`w-2 h-2 rounded-full transition-colors ${index === activeIndex
-                            ? "bg-text-primary"
-                            : "bg-border"
+                            ? "bg-[#f5f5f7]"
+                            : "bg-[#444446]"
                             }`}
                         aria-label={`Go to project ${index + 1}`}
                     />
